@@ -1,0 +1,1096 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_limiteBancoUSDC",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_limiteRetiroWei",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "admin",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "AccessControlBadConfirmation",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "neededRole",
+						"type": "bytes32"
+					}
+				],
+				"name": "AccessControlUnauthorizedAccount",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "DecimalesInvalidos",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "intentadoUSD",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "disponibleUSD",
+						"type": "uint256"
+					}
+				],
+				"name": "LimiteBancoExcedidoUSD",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "MontoCero",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "solicitado",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "limite",
+						"type": "uint256"
+					}
+				],
+				"name": "RetiroExcedeLimite",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "usuario",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "disponible",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "solicitado",
+						"type": "uint256"
+					}
+				],
+				"name": "SaldoInsuficiente",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "SoloAdmin",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "TokenNoSoportado",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "destino",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "TransferenciaFallida",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "AdminAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "AdminRemoved",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountUSDC",
+						"type": "uint256"
+					}
+				],
+				"name": "Deposit",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "previousAdminRole",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "newAdminRole",
+						"type": "bytes32"
+					}
+				],
+				"name": "RoleAdminChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "RoleGranted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "RoleRevoked",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "priceFeed",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "decimals",
+						"type": "uint8"
+					}
+				],
+				"name": "TokenRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "TokenUnregistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountUSDC",
+						"type": "uint256"
+					}
+				],
+				"name": "Withdraw",
+				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [],
+				"name": "ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "DEFAULT_ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "USDC_DECIMALS",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "addAdmin",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "depositCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "depositERC20",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "depositETH",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLimiteBancoUSDC",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "getPriceFeedForToken",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					}
+				],
+				"name": "getRoleAdmin",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTotalDepositedUSDC",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "grantRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "hasRole",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "isTokenRegistered",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "limiteBancoUSDC",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "limiteRetiroWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "priceFeed",
+						"type": "address"
+					},
+					{
+						"internalType": "uint8",
+						"name": "decimals",
+						"type": "uint8"
+					}
+				],
+				"name": "registerToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "removeAdmin",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "callerConfirmation",
+						"type": "address"
+					}
+				],
+				"name": "renounceRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "role",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "revokeRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes4",
+						"name": "interfaceId",
+						"type": "bytes4"
+					}
+				],
+				"name": "supportsInterface",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "tokenInfo",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "supported",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "priceFeed",
+						"type": "address"
+					},
+					{
+						"internalType": "uint8",
+						"name": "decimals",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "totalDepositedByToken",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "totalDepositedForToken",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalDepositedUSDC",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "tryTokenDecimals",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "unregisterToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdrawCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"errors": {
+				"AccessControlBadConfirmation()": [
+					{
+						"details": "The caller of a function is not the expected one. NOTE: Don't confuse with {AccessControlUnauthorizedAccount}."
+					}
+				],
+				"AccessControlUnauthorizedAccount(address,bytes32)": [
+					{
+						"details": "The `account` is missing a role."
+					}
+				]
+			},
+			"events": {
+				"RoleAdminChanged(bytes32,bytes32,bytes32)": {
+					"details": "Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole` `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite {RoleAdminChanged} not being emitted to signal this."
+				},
+				"RoleGranted(bytes32,address,address)": {
+					"details": "Emitted when `account` is granted `role`. `sender` is the account that originated the contract call. This account bears the admin role (for the granted role). Expected in cases where the role was granted using the internal {AccessControl-_grantRole}."
+				},
+				"RoleRevoked(bytes32,address,address)": {
+					"details": "Emitted when `account` is revoked `role`. `sender` is the account that originated the contract call:   - if using `revokeRole`, it is the admin role bearer   - if using `renounceRole`, it is the role bearer (i.e. `account`)"
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"constructor": {
+					"params": {
+						"_limiteBancoUSDC": "Límite global del banco, en unidades USDC (6 decimales). Ej: para $1,000, pasar 1_000 * 1e6",
+						"_limiteRetiroWei": "Límite por retiro para ETH (wei). Retiros ERC20 están limitados por saldo y lógica del token.",
+						"admin": "Admin inicial"
+					}
+				},
+				"depositERC20(address,uint256)": {
+					"params": {
+						"amount": "Cantidad en unidades del token (según sus decimales)",
+						"token": "Dirección del token ERC-20 (no usar address(0) para ERC20)"
+					}
+				},
+				"getRoleAdmin(bytes32)": {
+					"details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+				},
+				"grantRole(bytes32,address)": {
+					"details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event."
+				},
+				"hasRole(bytes32,address)": {
+					"details": "Returns `true` if `account` has been granted `role`."
+				},
+				"registerToken(address,address,uint8)": {
+					"details": "ADMIN_ROLE required"
+				},
+				"renounceRole(bytes32,address)": {
+					"details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event."
+				},
+				"revokeRole(bytes32,address)": {
+					"details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event."
+				},
+				"supportsInterface(bytes4)": {
+					"details": "Returns true if this contract implements the interface defined by `interfaceId`. See the corresponding https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[ERC section] to learn more about how these ids are created. This function call must use less than 30 000 gas."
+				},
+				"withdraw(address,uint256)": {
+					"params": {
+						"amount": "cantidad a retirar (wei para ETH, token-units para ERC20)",
+						"token": "token address (address(0) -> ETH)"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"USDC_DECIMALS()": {
+					"notice": "Decimales objetivo interno: USDC (6)"
+				},
+				"addAdmin(address)": {
+					"notice": "Añade un nuevo ADMIN"
+				},
+				"balanceOf(address,address)": {
+					"notice": "Consulta saldo de un usuario para un token específico"
+				},
+				"depositCount()": {
+					"notice": "Contadores simples"
+				},
+				"depositERC20(address,uint256)": {
+					"notice": "Deposita un token ERC-20 previamente aprobado al contrato"
+				},
+				"depositETH()": {
+					"notice": "Deposita ETH enviando msg.value (token = address(0))"
+				},
+				"getLimiteBancoUSDC()": {
+					"notice": "Consulta el límite global del banco en USDC (6 decimales)"
+				},
+				"getPriceFeedForToken(address)": {
+					"notice": "Devuelve el price feed address registrado para un token (o address(0) si none)"
+				},
+				"getTotalDepositedUSDC()": {
+					"notice": "Devuelve el total depositado en el banco en USDC (6 decimales)"
+				},
+				"isTokenRegistered(address)": {
+					"notice": "Devuelve si un token está registrado para participar en el límite global"
+				},
+				"limiteBancoUSDC()": {
+					"notice": "Límite global en USD (unidad: USDC decimals), inmutable"
+				},
+				"limiteRetiroWei()": {
+					"notice": "Límite por retiro en wei (ETH) para retiros de ETH; para ERC20 se aplica por token en unidades token-native"
+				},
+				"registerToken(address,address,uint8)": {
+					"notice": "Registra un token y su price feed (token/USD) para incluirlo en el límite global"
+				},
+				"removeAdmin(address)": {
+					"notice": "Elimina un ADMIN"
+				},
+				"tokenInfo(address)": {
+					"notice": "Token metadata para conversiones y controles"
+				},
+				"totalDepositedByToken(address)": {
+					"notice": "Total depositado por token (token-native units)"
+				},
+				"totalDepositedForToken(address)": {
+					"notice": "Devuelve el total depositado (token-native units) por token"
+				},
+				"totalDepositedUSDC()": {
+					"notice": "Total depositado en USD (unidad: USDC decimals) calculado con price feeds; usado para comparar con limiteBancoUSDC"
+				},
+				"tryTokenDecimals(address)": {
+					"notice": "Intento de lectura segura de decimals desde el token (no usado directamente; usamos registerToken.decimals)"
+				},
+				"unregisterToken(address)": {
+					"notice": "Elimina soporte (desregistra) un token"
+				},
+				"withdraw(address,uint256)": {
+					"notice": "Retira fondos (ETH si token == address(0), sino ERC20)"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/kipu-bank-v2.sol": "KipuBankV2"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol": {
+			"keccak256": "0xfe4e8bb4861bb3860ba890ab91a3b818ec66e5a8f544fb608cfcb73f433472cd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://644cff84052e1e82b5bb502b2a46e8f142a62b0db4cd9b38200798ba8373c6f7",
+				"dweb:/ipfs/QmTa99QHrJBn3SXDizquPBUiTxVCNKQrHgaWJhuds5Sce2"
+			]
+		},
+		"@openzeppelin/contracts/access/AccessControl.sol": {
+			"keccak256": "0x1a6b4f6b7798ab80929d491b89d5427a9b3338c0fd1acd0ba325f69c6f1646af",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7bb7f346c12a14dc622bc105ce3c47202fbc89f4b153a28a63bb68193297330c",
+				"dweb:/ipfs/QmagwF8P3bUBXwdo159ueEnY9dLSvEWwK24kk2op58egwG"
+			]
+		},
+		"@openzeppelin/contracts/access/IAccessControl.sol": {
+			"keccak256": "0xbff9f59c84e5337689161ce7641c0ef8e872d6a7536fbc1f5133f128887aba3c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b308f882e796f7b79c9502deacb0a62983035c6f6f4e962b319ba6a1f4a77d3d",
+				"dweb:/ipfs/QmaWCW7ahEQqFjwhSUhV7Ae7WhfNvzSpE7DQ58hvEooqPL"
+			]
+		},
+		"@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+			"keccak256": "0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://41319e7f621f2dc3733511332c4fd032f8e32ad2aa7fd6f665c19741d9941a34",
+				"dweb:/ipfs/QmcYR3bd862GD1Bc7jwrU9bGxrhUu5na1oP964bDCu2id1"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x74ed01eb66b923d0d0cfe3be84604ac04b76482a55f9dd655e1ef4d367f95bc2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5282825a626cfe924e504274b864a652b0023591fa66f06a067b25b51ba9b303",
+				"dweb:/ipfs/QmeCfPykghhMc81VJTrHTC7sF6CRvaA1FXVq2pJhwYp1dV"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+			"keccak256": "0xd6fa4088198f04eef10c5bce8a2f4d60554b7ec4b987f684393c01bf79b94d9f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f95ee0bbd4dd3ac730d066ba3e785ded4565e890dbec2fa7d3b9fe3bad9d0d6e",
+				"dweb:/ipfs/QmSLr6bHkPFWT7ntj34jmwfyskpwo97T9jZUrk5sz3sdtR"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12",
+				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+			"keccak256": "0x2d9dc2fe26180f74c11c13663647d38e259e45f95eb88f57b61d2160b0109d3e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://81233d1f98060113d9922180bb0f14f8335856fe9f339134b09335e9f678c377",
+				"dweb:/ipfs/QmWh6R35SarhAn4z2wH8SU456jJSYL2FgucfTFgbHJJN4E"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+			"keccak256": "0x8891738ffe910f0cf2da09566928589bf5d63f4524dd734fd9cedbac3274dd5c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://971f954442df5c2ef5b5ebf1eb245d7105d9fbacc7386ee5c796df1d45b21617",
+				"dweb:/ipfs/QmadRjHbkicwqwwh61raUEapaVEtaLMcYbQZWs9gUkgj3u"
+			]
+		},
+		"contracts/kipu-bank-v2.sol": {
+			"keccak256": "0x49c630ea9fb5044bec0a5f2d637175b5588486200df69151940864e6d990c21e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f07a2802338087abdc3b58efc6690bb73915751d5bec0ff20c1d4d6b7bef6cf9",
+				"dweb:/ipfs/QmZoy3Jqbc8XB2yAWEP4TtB7EZERhPn8qGLGDuFAa6Su51"
+			]
+		}
+	},
+	"version": 1
+}
